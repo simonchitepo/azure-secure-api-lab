@@ -1,0 +1,32 @@
+from fastapi.testclient import TestClient
+from main import app
+
+client = TestClient(app)
+
+
+def test_health_endpoint():
+    response = client.get("/health")
+    assert response.status_code == 200
+    body = response.json()
+    assert body["status"] == "ok"
+    assert "timestamp" in body
+
+
+def test_security_status_does_not_expose_secrets():
+    response = client.get("/api/security-status")
+    assert response.status_code == 200
+    body = response.json()
+    assert body["controls"]["no_hardcoded_secrets"] is True
+    forbidden_patterns = ["password=", "token=", "secret_key=", "connection_string="]
+    assert not any(pattern in str(body).lower() for pattern in forbidden_patterns)
+
+
+def test_safe_echo_accepts_safe_text():
+    response = client.post("/api/echo", json={"message": "hello cloud security"})
+    assert response.status_code == 200
+    assert response.json()["sanitized_message"] == "hello cloud security"
+
+
+def test_safe_echo_rejects_script_like_input():
+    response = client.post("/api/echo", json={"message": "<script>alert(1)</script>"})
+    assert response.status_code == 400

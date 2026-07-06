@@ -1,0 +1,14 @@
+flowchart LR
+    user[User / Recruiter / Tester] -->|HTTPS request| ingress[Azure Container Apps Ingress]
+    ingress -->|Port 8080| app[FastAPI Container App]
+    app -->|Structured logs| logs[Log Analytics Workspace]
+    app -->|Managed identity| identity[User-Assigned Managed Identity]
+    identity -->|AcrPull| acr[Azure Container Registry]
+    identity -->|Secret read scope| kv[Azure Key Vault]
+    github[GitHub Repository] -->|Actions: tests, Gitleaks, Trivy| ci[CI Security Workflow]
+    ci -->|Build image| acr
+    terraform[Terraform] -->|Provision resources| azure[Azure Resource Group]
+    azure --> ingress
+    azure --> logs
+    azure --> acr
+    azure --> kv
