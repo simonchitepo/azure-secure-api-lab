@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+.pytest_cache/
+*.pyc
+.env
+.DS_Store
+.vscode/
+.idea/
+
+download
+download*
+lastfailed
+stepwise
