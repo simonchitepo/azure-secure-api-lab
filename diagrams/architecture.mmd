@@ -1,0 +1,9 @@
+flowchart TD
+    U[User] -->|HTTPS| AS[Azure App Service]
+    AS -->|Runs| API[FastAPI App]
+    API -->|Reads secrets via| MI[Managed Identity]
+    MI --> KV[Azure Key Vault]
+    AS --> AI[Application Insights]
+    AI --> LA[Log Analytics]
+    GH[GitHub Repo] --> GA[GitHub Actions]
+    GA -->|Test + Deploy| AS
