@@ -654,3 +654,14 @@ When finished, this project should prove:
 Simon Chitepo
 
 Computer Science student focused on Cloud Security, DevSecOps, IAM, Azure, secure deployment, and security operations.
+## Security Controls
+
+| Control ID | Category | Description | Implementation | Status |
+|---|---|---|---|---|
+| SC-01 | Identity & Access Management | Least-privilege access to Azure resources | Azure IAM roles scoped per service, no broad Owner/Contributor grants | Implemented |
+| SC-02 | Secrets Management | No secrets in code or config | Azure Key Vault for API keys/connection strings | Implemented |
+| SC-03 | Transport Security | Encrypt data in transit | HTTPS enforced on App Service | Implemented |
+| SC-04 | Logging & Monitoring | Detect and investigate incidents | Azure Monitor / App Service diagnostic logging enabled | Implemented |
+| SC-05 | Infrastructure as Code | Reproducible, auditable environment | Terraform manages all cloud resources | Implemented |
+| SC-06 | CI/CD Security | Prevent insecure deploys | GitHub Actions pipeline with secret scanning / dependency checks | In progress |
+| SC-07 | Threat Modeling | Document known attack surface | Threat model doc included in repo | Planned |
