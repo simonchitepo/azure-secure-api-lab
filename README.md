@@ -665,3 +665,13 @@ Computer Science student focused on Cloud Security, DevSecOps, IAM, Azure, secur
 | SC-05 | Infrastructure as Code | Reproducible, auditable environment | Terraform manages all cloud resources | Implemented |
 | SC-06 | CI/CD Security | Prevent insecure deploys | GitHub Actions pipeline with secret scanning / dependency checks | In progress |
 | SC-07 | Threat Modeling | Document known attack surface | Threat model doc included in repo | Planned |
+
+## Risk Register
+
+| Risk ID | Description | Likelihood | Impact | Mitigation | Status |
+|---|---|---|---|---|---|
+| RR-01 | Over-permissioned IAM role assigned to App Service or CI identity | Medium | High | Apply least-privilege roles, review assignments regularly | Open |
+| RR-02 | Key Vault access policy too broad, allowing unintended read access | Low | High | Scope Key Vault access policies per-identity, audit periodically | Open |
+| RR-03 | Terraform state file containing sensitive values stored insecurely | Medium | High | Use remote state backend with encryption (e.g. Azure Storage + encryption) | Open |
+| RR-04 | GitHub Actions pipeline leaks secrets via logs or a compromised action | Low | High | Mask secrets in logs, pin third-party actions to commit SHA | Open |
+| RR-05 | No alerting on anomalous access to the deployed API | Medium | Medium | Configure Azure Monitor alerts on suspicious auth/log patterns | Open |
